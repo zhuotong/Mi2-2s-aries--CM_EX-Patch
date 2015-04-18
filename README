@@ -42,6 +42,34 @@ make[2]: *** 正在等待未完成的任务....
 再编译就可以了。
 内核路径
 kernel/xiaomi/aries/out/arch/arm/boot/zImage
-  
+--------------------------
+cm11源码编译里出现这个错误，虽然不影响编译也没什么问题，但是完美主义就是要解决。
+
+The present kernel configuration has modules disabled.
+Type 'make config' and enable loadable module support.
+Then build a kernel with module support enabled.
+
+make[2]: *** [modules] 错误 1
+make[1]: *** [sub-make] 错误 2
+make[1]:正在离开目录 `/media/ubuntu/home/dong/cm/cm11.0/kernel/xiaomi/aries'
+make: [TARGET_KERNEL_BINARIES] 错误 2 (忽略)
+The present kernel configuration has modules disabled.
+Type 'make config' and enable loadable module support.
+Then build a kernel with module support enabled.
+
+make[2]: *** [modules_install] 错误 1
+make[1]: *** [sub-make] 错误 2
+make[1]:正在离开目录 `/media/ubuntu/home/dong/cm/cm11.0/kernel/xiaomi/aries'
+make: [TARGET_KERNEL_BINARIES] 错误 2 (忽略)
+---------
+内核目录
+grep -rin 'modules disabled' .
+在跟makefile找到ifdef CONFIG_MODULES
+解决就是在选择的config文件添加
+# I add CONFIG_MODULES
+CONFIG_MODULES=y
+-----------
+最后编译出的模块有
+/drivers/scsi/scsi_wait_scan.ko
 
 
