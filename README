@@ -27,3 +27,21 @@ patch功能:
 1.复制全部文件到kernel源代码根目录覆盖文件（backup目录可以不要）
 2.cd到kernel源码根目录,使用Ctrl+Alt+T打开终端，输入patch -p1 < cm-ex.patch打上补丁
 3.编译内核
+-----------------
+cm11编译出错解决：
+需要修改的地方：
+1：cyanogen_cm11-ex_aries_defconfig复制到/kernel/xiaomi/aries/arch/arm/configs
+2：export ARCH=arm，初始化过安卓源码环境的情况下：export CROSS_COMPILE=arm-eabi-
+3：mkdir -p ./out/done/modules/
+  make O=./out cyanogen_aries_defconfig
+  make -j16 O=./out
+4： make[2]: *** 没有规则可以创建“arch/arm/mach-msm/built-in.o”需要的目标“arch/arm/mach-msm/msm-sleeper.o”。 停止。
+make[2]: *** 正在等待未完成的任务....
+解决：
+/kernel/xiaomi/aries/arch/arm/arch-msm/msm-sleeper.c复制到/kernel/xiaomi/aries/arch/arm/mach-msm/
+再编译就可以了。
+内核路径
+kernel/xiaomi/aries/out/arch/arm/boot/zImage
+  
+
+
